@@ -1,0 +1,27 @@
+# java-crud-app-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: java-crud-app-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: java-crud-app
+  template:
+    metadata:
+      labels:
+        app: java-crud-app
+    spec:
+      containers:
+      - name: java-crud-app
+        image: midejoe/java-api:2.0
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DATABASE_URL
+          value: "jdbc:mysql://mysql-service:3306/store_database"
+        - name: DATABASE_USERNAME
+          value: "dbuser"
+        - name: DATABASE_PASSWORD
+          value: "@YourPassword#"
