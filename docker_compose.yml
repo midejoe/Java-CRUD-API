@@ -1,0 +1,21 @@
+version: '3'
+services:
+  my-sql-server:
+    container_name: my-sql-server
+    image: midejoe/java-api:mysql
+    ports:
+      - 3306:3306
+
+  java-crud-app:
+    container_name: java_api
+    image: midejoe/java-api:2.0
+    ports:
+      - 8080:8080
+    environment:
+      - DATABASE_URL=jdbc:mysql://my-sql-server:3306/store_database
+      - DATABASE_USERNAME=dbuser
+      - DATABASE_PASSWORD=@YourPassword#
+    depends_on:
+      - my-sql-server
+
+  
